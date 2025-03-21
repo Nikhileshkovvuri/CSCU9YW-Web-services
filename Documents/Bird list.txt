@@ -1,0 +1,11 @@
+Scientific Name-Aquila chrysaetos
+Common Name-Golden Eagle
+Description-Large bird of prey. Majestic.
+
+Scientific Name-Bubo scandiacus
+Common Name-Snowy Owl
+Description-White, arctic bird. Very rare in Scotland.
+
+Scientific Name-Corvus corax
+Common Name-Common Raven
+Description-Black, social bird. Often viewed as bad omen.

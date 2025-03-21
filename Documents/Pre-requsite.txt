@@ -1,0 +1,17 @@
+Types of Java classes needed?
+
+Ballot class
+Admin Control Class //Role of admin start and end process, count of vote 
+Voter class- voter and different regions of scotland //voter name,id etc
+Candidates class- name, age, nomination of bird and place
+Count class- count the number of votes //Functionality of web service- one voter one vote
+
+
+Interface of programs
+Casting of vote(total count of votes), retracting a vote (delete)
+
+Client interface-
+drop down list of candidates, 
+
+
+Buisness logic
