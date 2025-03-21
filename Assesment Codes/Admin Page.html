@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+  <title>Web-Based Polling Application</title>
+<style>
+      h1 {
+          text-align: center;
+      
+        }
+  </style></head>
+<body>
+<h1>Admim Page</h1>
+<hr>
+<div>
+  <h2>Candidates Names and details below</h2>
+	<div>
+        <button onclick="TallyVotes();">Show Tally</button>
+    </div>
+
+    <br><br>
+    <pre id="AdminOutput"></pre>
+
+    <script>
+    	function TallyVotes()
+       {
+            let url = 'http://localhost:8080/votes/VoteAdd';
+            fetch(url).
+                then(response => response.json()).
+				then(data => AdminOutput.innerHTML = JSON.stringify(data, null, 3)).
+                catch(error => AdminOutput.innerHTML = error);
+            
+        }
+
+    </script>
+</body>
+</html>

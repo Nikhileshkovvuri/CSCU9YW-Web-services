@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8"/>
+    <title>Web-Based Polling Application</title>
+  <style>
+        h1 {
+            text-align: center;
+        
+          }
+    </style></head>
+<body>
+<h1>Candidate Voting</h1>
+<hr>
+<div>
+    <h2>Candidates For Voting</h2>
+    <button type="button" onclick="candidatesForVoting();">Display Candidates For Voting</button>
+</div>
+<hr>
+
+<div>
+  <h2>Member Details</h2>
+  <label for="membershipNumber"><b>Membership number*</b></label> <br/>
+  <input type="text" placeholder="Membership number" name="Membership number" id="membershipNumber" required><br/>
+
+  <label for="memberName"><b>Name</b></label><br/>
+  <input type="text" placeholder="Name" name="Name of member" id="memberName" required><br/>
+
+  <label for="memberAge"><b>Age</b></label><br/>  
+  <input type="text" placeholder="Age" name="Age of member" id="memberAge" required><br/>
+
+  <label for="regionOfScot"><b>Region of Scotland</b></label><br/>
+  <input type="text" placeholder="Region of Scotland" name="regionOfScot" id="regionOfScot" required><br/>
+</div>
+<hr>
+
+<div>
+  <h2>Vote here</h2>
+  <button type="button" onclick="candidateVote()">Confirm Vote</button>
+      <select id="candidateName_option">
+      <option value="Common Raven">Common Raven</option>
+      <option value="Snowy Owl">Snowy Owl</option>
+      <option value="Golden Eagle">Golden Eagle</option>
+      </select>
+
+  <button type="button" onclick="removeVote()">Delete</button>
+
+</div>
+<hr>
+
+</body>
+</html>
+
+    <pre id="VoterOutput">
+    </pre>
+
+    <script>
+  function candidatesForVoting(){
+const VoterOutput=document.getElementById('VoterOutput');
+fetch('http://localhost:8080/candidateBN').
+then(response => response.json()).
+then(data => VoterOutput.innerHTML = JSON.stringify(data,null,3)).
+catch(error => VoterOutput.innerHTML = error);
+}
+
+
+function candidateVote(){
+const VoterOutput=document.getElementById('VoterOutput');
+const Membership_Num=document.getElementById('membershipNumber').value.toString();
+const Name=document.getElementById('memberName').value;
+const Age_num=document.getElementById('memberAge').value;
+const RegionScot=document.getElementById('regionOfScot').value;
+const candidateBirdName=document.getElementById('candidateName_option').value;
+
+fetch('http://localhost:8080/votes/VotePost/' + candidateBirdName ,
+{
+  
+method:'PUT',
+headers:{
+'Content-Type':'application/json'
+},
+body:JSON.stringify({
+membershipNumber:Membership_Num,
+memberName:Name,
+memberAge:Age_num,
+regionOfScot:RegionScot
+})
+}).
+then(response => response.json()).
+then(data => VoterOutput.innerHTML = "Results of Voting: " + JSON.stringify(data, null, 3)).
+catch(error => VoterOutput.innerHTML = error);
+
+}
+
+
+
+
+function removeVote(){
+  const VoterOutput=document.getElementById('VoterOutput');
+const Membership_Num=document.getElementById('membershipNumber').value.toString();
+const Name=document.getElementById('memberName').value;
+const Age_num=document.getElementById('memberAge').value;
+const RegionScot=document.getElementById('regionOfScot').value;
+const candidateBirdName=document.getElementById('candidateName_option').value;
+
+fetch('http://localhost:8080/votes/VoteRemove/' + candidateBirdName , {
+method:'DELETE',
+headers:{
+'Content-Type':'application/json'
+},
+body:JSON.stringify({
+  membershipNumber:Membership_Num,
+memberName:Name,
+memberAge:Age_num,
+regionOfScot:RegionScot
+})
+}).
+then(response => VoterOutput.innerHTML = "Vote Has Been Deleted").
+catch(error => VoterOutput.innerHTML = error);
+}
+
+    </script>
+  </body>
+</html>
